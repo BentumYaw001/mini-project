@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>REGISTER</title>
+    <link rel="stylesheet" href="logins.css">
+</head>
+<body>
+    <header class="">
+        <div class="fas fa-graduation-cap"> <i class="fa fa-graduation-cap" style="font-size:48px;color:rgb(91, 149, 236)">SOLA</i></div>
+    </header>
+    <div class="container">	
+        <form name="registration_form" id="registration_form" method="post" action="#" enctype="multipart/form-data" >
+        <div class="auth-box">
+      
+          <div class="col-sm-4">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email">
+              </div>
+              
+              <div class="form-group">
+                <label for="password" >Password</label>
+                <input type="password" name="password" id="password" class="form-control"  placeholder="Enter your password">
+              </div>
+              <button type="button" id="register" name="register" class="btn btn-success">Register Now</button>
+              <br>
+              <br>
+             <p> ALready have an account? <a href="login.html">LOGIN</a></p>
+          </div>
+          </form>
+         
+        </div>
+
+        <div class="welcome-box">
+            <h2 class="h2h">Welcome!</h2>
+            <p>In the ever-evolving field of computer science education,
+               students often struggle to find comprehensive and organized 
+               course materials online. 
+               Existing educational websites may lack cohesive content 
+               and intuitive interfaces. </p>
+            <p>That is why SOLA is here! to provide a
+                 user-friendly platform where students can
+                  access course materials.
+            </p>
+        </div>
+
+        <div class="footer">
+          Bentum Technologies &copy; 2020 | <a href="#">Privacy Policy</a> | <a href="#">User Agreement</a> | <a href="#">Copyright Policy</a>
+      </div>
+
+
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+            import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+            
+            const firebaseConfig = {
+          apiKey: "AIzaSyDhoIAKMyaCc5GmDoFGs3ak-9Bcv4M3GKY",
+          authDomain: "bentum-auth.firebaseapp.com",
+          projectId: "bentum-auth",
+          storageBucket: "bentum-auth.appspot.com",
+          messagingSenderId: "1062788613034",
+          appId: "1:1062788613034:web:6bde7523400eaf249761d3",
+          measurementId: "G-K5GKCXRX9K"
+        };
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            const auth = getAuth();
+            console.log(app);
+      
+            
+      
+            //----- New Registration code start	  
+            document.getElementById("register").addEventListener("click", function() {
+                var email =  document.getElementById("email").value;
+                var password = document.getElementById("password").value;
+                //For new registration
+                createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                  // Signed in 
+                  const user = userCredential.user;
+                  console.log(user);
+                  alert("Registration successfully!!");
+                  window.location.href = "home.html";
+                  // ...
+                })
+                .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  // ..
+                  console.log(errorMessage);
+                  alert(error);
+                });		  		  
+            });
+            //----- End
+      
+  
+      
+        </script>
+    
+</html>

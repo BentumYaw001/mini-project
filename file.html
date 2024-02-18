@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<!-- Bootstrap theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		body {
+			background-image: url("images/login.jpeg");
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+        #login{
+            background-color: rgb(65, 81, 223);
+        }
+       .cap{
+            margin: 30px;
+            color: blue;
+        }
+
+		.container {
+			margin-top: 50px;
+            margin-left: 195px;
+            color: blue;
+		}
+
+		.auth-box {
+			background-color: rgba(221, 218, 218, 0.8);
+             padding-top: 70px;
+			border-radius: 15px;
+            margin: 30px;
+            margin-top: 70px;
+           color: blue;
+		   height: 260px;
+		   /* width: 350px; */
+		   /* float: left; */
+		   text-align: center;
+		   /* width: 50px; */
+		}
+
+		.welcome-box {
+			background-color: rgba(207, 203, 203, 0.8);
+			padding: 20px;
+			border-radius: 15px;
+			text-align: center;
+            margin: 30px;
+			margin-right: 100px;
+            margin-top: 70px;
+			font-family: 'Times New Roman', Times, serif;
+			font-size: 20px;
+			font-weight: lighter;
+			width: 450px;
+			/* float: right; */
+
+		}
+		.h2h{
+			font-family: "Lucida Console", "Courier New", monospace;
+
+		}
+		/* .form-group{
+			padding: 20px;
+			border-radius: 15px;
+			border-color: aqua;
+			
+
+		} */
+
+        .footer {
+			text-align: center;
+			margin-top: 550px;
+		}
+	</style>
+	<title> Login</title>
+</head>
+<body>
+    <head class="">
+		<div class="cap"> <i class="fa fa-graduation-cap" style="font-size:48px;color:rgb(91, 149, 236)">SOLA</i></div>
+        </head>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4 col-sm-offset-4 auth-box">
+			<form name="login_form" id="login_form" method="post" action="homeserver.html" enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="login_email">Email</label>
+					<input type="text" name="login_email" id="login_email" class="form-control" placeholder="Enter your email">
+				</div>
+				<div class="form-group">
+					<label for="login_password">Password</label>
+					<input type="password" name="login_password" id="login_password" class="form-control" placeholder="Enter your password">
+				</div>
+				<button type="button" id="login" name="login" class="btn btn-success">Login</button>
+			</form>
+		</div>
+
+		<div class="col-sm-4 welcome-box">
+			<h2 class="h2h">Welcome!</h2>
+			<p>In the ever-evolving field of computer science education,
+			   students often struggle to find comprehensive and organized 
+			   course materials online. 
+			   Existing educational websites may lack cohesive content 
+			   and intuitive interfaces. </p>
+			   <p>That is why SOLA is here! to provide a
+				 user-friendly platform where students can
+				  access course materials.
+				</p>
+           </div>
+	</div>
+</div>
+
+<!-- footer section -->
+<div class="footer">
+	Bentum Technologies &copy; 2020 | <a href="#">Privacy Policy</a> | <a href="#">User Agreement</a> | <a href="#">Copyright Policy</a>
+</div>
+
+<script type="module">
+	
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+	import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+	import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
+	
+	const firebaseConfig = {
+		
+        apiKey: "AIzaSyDhoIAKMyaCc5GmDoFGs3ak-9Bcv4M3GKY",
+    authDomain: "bentum-auth.firebaseapp.com",
+    projectId: "bentum-auth",
+    storageBucket: "bentum-auth.appspot.com",
+    messagingSenderId: "1062788613034",
+    appId: "1:1062788613034:web:6bde7523400eaf249761d3",
+    measurementId: "G-K5GKCXRX9K"
+	};
+
+	const app = initializeApp(firebaseConfig);
+	const analytics = getAnalytics(app);
+	const auth = getAuth();
+	console.log(app);
+
+	document.getElementById("login").addEventListener("click", function() {
+		var email =  document.getElementById("login_email").value;
+		var password = document.getElementById("login_password").value;
+
+		signInWithEmailAndPassword(auth, email, password)
+		.then((userCredential) => {
+			// Signed in 
+			const user = userCredential.user;
+			console.log(user);
+			alert(user.email + " Login successfully!");
+			window.location.href = "home.html";
+		})
+		.catch((error) => {
+			const errorMessage = error.message;
+			console.log(errorMessage);
+			alert(errorMessage);
+		});
+	});
+
+	// Logout code
+	document.getElementById("logout").addEventListener("click", function() {
+		signOut(auth).then(() => {
+			console.log('Sign-out successful.');
+			alert('Sign-out successful.');
+		}).catch((error) => {
+			console.log('An error happened.');
+		});
+	});
+</script>
+</body>
+</html>
